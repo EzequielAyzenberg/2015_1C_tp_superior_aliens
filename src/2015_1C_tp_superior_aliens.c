@@ -28,17 +28,22 @@ int i;
 int j;
 int k;
 int m;
-int p[5];
+
 int r[5];
-int v[2, 3, 4, 5, 6, 7, 8, 9];
+int p[5];
+int v[8] = {2,3,4,5,6,7,8,9}; 
+int datos[10][2] = { {100,54} , {150,83} , {230,118} , {240,123} , {260,132}, {290,148} , {300,150}, {350,178}, {375,184}, {390,198}};
 
+/*
+==========
+PROTOTIPOS
+==========
+*/
 
-//TODO
-//Crear la matriz datos[10][2] (el primer parametro son las posiciones de los puntos [0-9] 
-//el segundo es si es el dato de x(0) o y(1) [0-1])
-//asignarle los datos de la tabla a la matris datos
-
-
+int verificarSiCumpleError (int* r, float* a, float* b, float* e1);
+float calcularError (int* columnaX, int* columnaY, int a, int b);
+int cuadrado (int dato);
+float hacerSumatoria(int* columna);
 
 /*
 ==================
@@ -47,7 +52,7 @@ PROGRAMA PRINCIPAL
 */
 
 int main(void) {
-	r[0];
+	r[0] = 0;		//Lo dejo como estaba antes ya que no se cual es la idea del "r[0]"
 	for(i=0; i<=7; i++) {
 		r[1] = v[i];
 		for(j=i+1; j<=7; j++) {
@@ -60,7 +65,7 @@ int main(void) {
 					if(!verificarSiCumpleError(r, &a, &b, &e1))
 						continue;
 	
-					p= determinarElOtroVector (r); //falta
+					p = determinarElOtroVector (r); //falta
 					if(!verificarSiCumpleError(r, &c, &d, &e2))
 						continue;
 	
@@ -79,36 +84,35 @@ FUNCIONES
 =========
 */
 
-int verificarSiCumpleError (r, *a, *b, *e1){
-	//crear columnaX[6] "en el 6to se guarda la sumatoria"
-	//crear columnaY[6] "en el 6to se guarda la sumatoria"
-	//crear columnaX2[6] "en el 6to se guarda la sumatoria"
-	//crear columnaXY[6] "en el 6to se guarda la sumatoria"
-	int i;
+int verificarSiCumpleError (int* r, float* a, float* b, float* e1){
+	int columnaX[5]; 	//Te modifico esto de 6 a 5, ya que el resultado de la sumatoria lo terminas guardando en una variable aparte
+	int columnaY[5];	//Te modifico esto de 6 a 5, ya que el resultado de la sumatoria lo terminas guardando en una variable aparte
+	int columnaX2[5]; 	//Te modifico esto de 6 a 5, ya que el resultado de la sumatoria lo terminas guardando en una variable aparte
+	int columnaXY[5]; 	//Te modifico esto de 6 a 5, ya que el resultado de la sumatoria lo terminas guardando en una variable aparte
+	int i;				//Las columnas supuse que son de tipo int.
 	float sumatoriaX;
-	float sumatoriaY;
-	float sumatoriaX2;
+	float sumatoriaY;		
+	float sumatoriaX2;	
 	float sumatoriaXY;
 
-	for(i=0; i<5, i++){
-		columnaX[i] = datos[r[i]].[0];
-		columnaX[i] = datos[r[i]].[0];
-		columnaX[i] = cuadrado (datos[r[i]].[0]);
-		columnaX[i] = datos[r[i]].[0] * datos[r[i]].[1];
+	for(i=0; i<5, i++){					//Modifique este for, ya que antes estaba mal. Fijense que onda.
+		columnaX[i] = datos[r[i]].[0];		
+		columnaY[i] = datos[r[i]].[1];	
+		columnaX2[i] = cuadrado (datos[r[i]].[0]);
+		columnaXY[i] = datos[r[i]].[0] * datos[r[i]].[1];	
 	}
 
-	sumatoriaX = hacerSumatoria(columnaX);  //falta hacer sumatoria
+	sumatoriaX = hacerSumatoria(columnaX);
 	sumatoriaY = hacerSumatoria(columnaY);
 	sumatoriaX2 = hacerSumatoria(columnaX2);
 	sumatoriaXY = hacerSumatoria(columnaXY);
 	
 	calcularAB(sumatoriaX, sumatoriaY, sumatoriaX2, sumatoriaXY, *a, *b) //falta hacer carcularAB
-		e1 = calcularError (columnaX, columnaY, a, b);
+	e1 = calcularError (columnaX, columnaY, a, b);
 	return (e1 - 0,3);
 }
 
-
-float calcularError (columnaX, columnaY, a, b){
+float calcularError (int* columnaX, int* columnaY, int a, int b){	//Le agrege * a los int, ya que son vectores.
 	float e = 0;
 	int i;
 	for(i=0; i<5; i++){
@@ -119,11 +123,13 @@ float calcularError (columnaX, columnaY, a, b){
 	return e;
 }
 
-
 int cuadrado (int dato) {
-	return dato * dato;
+
+ return (dato * dato);
 }
 
+float hacerSumatoria(int* columna) {		//Esta funcion es muy sencilla ya que el vector siempre contendrá 5 numeros
+	float sumatoria = columna[0]+columna[1]+columna[2]+columna[3]+columna[4];
 
-
-
+	return(sumatoria);
+}
