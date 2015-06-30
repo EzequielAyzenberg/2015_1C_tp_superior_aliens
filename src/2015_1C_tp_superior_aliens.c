@@ -16,25 +16,25 @@
 
 /*
 =========
-VARIABLES 
+VARIABLES
 =========
 */
 
-float a;	/*Termino lineal de la recta1*/
-float b;	/*Termino independiente de la recta1*/
-float c;	/*Termino lineal de la recta2*/
-float d;	/*Termino independiente de la recta2*/
-float e1;	/*Error de la recta1*/
-float e2;	/*Error de la recta2*/
+float a;	//Termino lineal de la recta1
+float b;	//Termino independiente de la recta1
+float c;	//Termino lineal de la recta2
+float d;	//Termino independiente de la recta2
+float e1;	//Error de la recta1
+float e2;	//Error de la recta2
 
-int i;		/*variable 1 del ciclo*/
-int j;		/*variable 2 del ciclo*/
-int k;		/*variable 3 del ciclo*/
-int m;		/*variable 4 del ciclo*/
+int i;		//variable 1 del ciclo
+int j;		//variable 2 del ciclo
+int k;		//variable 3 del ciclo
+int m;		//variable 4 del ciclo
 
-int r[5];	/*Recta1*/
-int p[5];	/*Recta2*/
-int v[8] = {2,3,4,5,6,7,8,9}; /*Punto nºX (0-7), ignorando los primeros 2.*/
+int r[5];	//Recta1
+int p[5];	//Recta2
+int v[8] = {2,3,4,5,6,7,8,9}; //Punto nºX (0-7), ignorando los primeros 2.
 int datos[10][2] = { {100,54} , {150,83} , {230,118} , {240,123} , {260,132}, {290,148} , {300,150}, {350,178}, {375,184}, {390,198}};
 
 /*
@@ -47,7 +47,6 @@ int verificarSiCumpleError (int Flag);
 float hacerSumatoria(int* columna);
 void calcularAB(float sumatoriaX, float sumatoriaY, float sumatoriaX2, float sumatoriaXY);
 float calcularError (int* columnaX, int* columnaY);
-void determinarElOtroVector(void);
 int elOtroVectorVerifica(void);
 int cuadrado (int dato);
 
@@ -61,8 +60,8 @@ PROGRAMA PRINCIPAL
 */
 
 int main(void) {
-	r[0] = 0;	/*La primer recta siempre tendrá el punto nº0.*/
-	p[0] = 1;	/*La segunda recta siempre tendrá al punto nº1.*/
+	r[0] = 0;	//La primer recta siempre tendrá el punto nº0.
+	p[0] = 1;	//La segunda recta siempre tendrá al punto nº1.
 	for(i=0; i<=7; i++) {
 		r[1] = v[i];
 		for(j=i+1; j<=7; j++) {
@@ -71,18 +70,20 @@ int main(void) {
 				r[3] = v[k];
 				for(m=k+1; m<=7; m++) {
 					r[4] = v[m];
-				
-					if(verificarSiCumpleError(recta1) == -1)	/*Si la funcion retorna 0, significa que su error es menor a 0,3*/
-						continue;								/*El -1 ignifica error.*/
-	
-					if (elOtroVectorVerifica () == -1);			/*Si retorna 0, la 2da rectsa tambien tendrá error <0,3*/
-						continue;								/*El -1 significa error.*/
+
+					if(verificarSiCumpleError(recta1) == -1)	//Si la funcion retorna 0, significa que su error es menor a 0,3
+						continue;								//El -1 ignifica error.
+
+					if (elOtroVectorVerifica () == -1)			//Si retorna 0, la 2da rectsa tambien tendrá error <0,3
+						continue;								//El -1 ignifica error.
+
 					imprimirMensaje();
 				}
-			}	
+			}
 		}
 	}
-	return EXIT_SUCCESS;
+
+	return 0; 		//Capricho mio, me gusta devolver 0 cuando las cosas son True :D
 }
 
 /*
@@ -96,27 +97,27 @@ int verificarSiCumpleError (int Flag){
 	int columnaY[5];
 	int columnaX2[5];
 	int columnaXY[5];
-	int i;
+	int contador;
 	float sumatoriaX;
-	float sumatoriaY;		
-	float sumatoriaX2;	
+	float sumatoriaY;
+	float sumatoriaX2;
 	float sumatoriaXY;
 
 	if(Flag == recta1) {
-	
-		for(i=0; i<5; i++){
-			columnaX[i] = datos[r[i]][0];		
-			columnaY[i] = datos[r[i]][1];	
-			columnaX2[i] = cuadrado (datos[r[i]][0]);
-			columnaXY[i] = datos[r[i]][0] * datos[r[i]][1];	
+
+		for(contador=0; contador<5; contador++){
+			columnaX[contador] = datos[r[contador]][0];
+			columnaY[contador] = datos[r[contador]][1];
+			columnaX2[contador] = cuadrado (datos[r[contador]][0]);
+			columnaXY[contador] = datos[r[contador]][0] * datos[r[contador]][1];
 		}
 	}
 	else {
-		for(i=0; i<5; i++){
-		columnaX[i] = datos[p[i]][0];		
-		columnaY[i] = datos[p[i]][1];	
-		columnaX2[i] = cuadrado (datos[p[i]][0]);
-		columnaXY[i] = datos[p[i]][0] * datos[p[i]][1];	
+		for(contador=0; contador<5; contador++){
+		columnaX[contador] = datos[p[contador]][0];
+		columnaY[contador] = datos[p[contador]][1];
+		columnaX2[contador] = cuadrado (datos[p[contador]][0]);
+		columnaXY[contador] = datos[p[contador]][0] * datos[p[contador]][1];
 		}
 	}
 
@@ -124,19 +125,19 @@ int verificarSiCumpleError (int Flag){
 	sumatoriaY = hacerSumatoria(columnaY);
 	sumatoriaX2 = hacerSumatoria(columnaX2);
 	sumatoriaXY = hacerSumatoria(columnaXY);
-	
+
 	calcularAB(sumatoriaX, sumatoriaY, sumatoriaX2, sumatoriaXY);
-	
+
 	if(Flag == recta1) {
 		e1 = calcularError (columnaX, columnaY);
-		if (e1 < 0,3) 
-			return (0);		/*Modifique lo anterior por return(0) o return(-1).*/
+		if (e1 < 0.3)
+			return (0);		//Modifique lo anterior por return(0) o return(-1).
 		else
 			return(-1);
 	}
 	else {
 		e2 = calcularError (columnaX, columnaY);
-		if(e2 < 0,3)
+		if(e2 < 0.3)
 			return(0);
 		else
 			return(-1);
@@ -151,40 +152,40 @@ float hacerSumatoria(int* columna) {
 
 
 void calcularAB(float sumatoriaX, float sumatoriaY, float sumatoriaX2, float sumatoriaXY) {
-	
-	float sumatoria1 = 5;		/*Saco a y b despejando de la formula a manopla; y genericamente.*/
+int sumatoria1;
+	sumatoria1 = 5;		//Saco a y b despejando de la formula a manopla; y genericamente.
 	b = (sumatoriaXY * sumatoriaX - sumatoriaX2 * sumatoriaY ) / (cuadrado(sumatoriaX) - sumatoriaX2 * sumatoria1);
 	a = (sumatoriaY - sumatoria1 * b) / sumatoriaX;
-	
+
 }
 
-float calcularError (int* columnaX, int* columnaY){	/*Le agrege * a los int, ya que son vectores.*/
+float calcularError (int* columnaX, int* columnaY){	//Le agrege * a los int, ya que son vectores.
 	float valor;
 	float e = 0;
-	int i;
-	
-	for(i=0; i<5; i++){
-		valor = columnaY[i] - (a * columnaX[i] + b);
+	int contador;
+
+	for(contador=0; contador<5; contador++){
+		valor = columnaY[contador] - (a * columnaX[contador] + b);
 		valor = cuadrado(valor);
 		e += valor;
 	}
-	
+
 	return e;
 }
 
 int elOtroVectorVerifica(void) {
 	int valoresRecta2[4];
-	int i=0;
-	int j;
-	
-	for(j=2;j<10;j++) {
-		if(r[1] != j && r[2] != j && r[3] != j && r[4] != j) {
-			valoresRecta2[i] = j;
-			i++;
+	int contador1=0;
+	int contador2;
+
+	for(contador2=2;contador2<10;contador2++) {
+		if(r[1] != contador2 && r[2] != contador2 && r[3] != contador2 && r[4] != contador2) {
+			valoresRecta2[contador1] = contador2;
+			contador1++;
 		}
-		
+
 	}
-	/*Se asigno el valor de p[0] en comienzo del main.*/
+	//Se asigno el valor de p[0] en comienzo del main.
 	p[1] = valoresRecta2[0];
 	p[2] = valoresRecta2[1];
 	p[3] = valoresRecta2[2];
@@ -192,7 +193,7 @@ int elOtroVectorVerifica(void) {
 	if(verificarSiCumpleError(recta2) == -1)
 		return(-1);
 	return(0);
-	
+
 }
 
 int cuadrado (int dato) {
@@ -201,7 +202,7 @@ int cuadrado (int dato) {
 }
 
 void imprimirMensaje(void) {
-	
+
 puts("Aclaracion: los puntos seran devueltos en formato de par ordenado (x,y)");
 puts("Los datos de la primera recta son: ");
 printf("Punto 1: (%d,%d)\n", datos[r[0]][0], datos[r[0]][1]);
@@ -214,7 +215,7 @@ printf("El error total de la recta1 es %f\n", e1);
 puts("");
 puts("");
 
-puts("Los datos de la primera recta son: ");
+puts("Los datos de la segunda recta son: ");
 printf("Punto 1: (%d,%d)\n", datos[p[0]][0], datos[p[0]][1]);
 printf("Punto 2: (%d,%d)\n", datos[p[1]][0], datos[p[1]][1]);
 printf("Punto 3: (%d,%d)\n", datos[p[2]][0], datos[p[2]][1]);
@@ -223,7 +224,7 @@ printf("Punto 5: (%d,%d)\n", datos[p[4]][0], datos[p[4]][1]);
 printf("El error total de la recta1 es %f\n", e2);
 puts("");
 puts("Fin de los datos.");
-/*puts("Presione una tecla para finalizar.");
-getchar();*/
+puts("Presione una tecla para finalizar.");
+getchar();
 
 }
