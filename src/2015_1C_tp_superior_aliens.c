@@ -210,7 +210,6 @@ printf("Punto 2: (%d,%d)\n", datos[r[1]][0], datos[r[1]][1]);
 printf("Punto 3: (%d,%d)\n", datos[r[2]][0], datos[r[2]][1]);
 printf("Punto 4: (%d,%d)\n", datos[r[3]][0], datos[r[3]][1]);
 printf("Punto 5: (%d,%d)\n", datos[r[4]][0], datos[r[4]][1]);
-printf("El error total de la recta1 es %f\n", e1);
 
 puts("");
 puts("");
@@ -221,7 +220,6 @@ printf("Punto 2: (%d,%d)\n", datos[p[1]][0], datos[p[1]][1]);
 printf("Punto 3: (%d,%d)\n", datos[p[2]][0], datos[p[2]][1]);
 printf("Punto 4: (%d,%d)\n", datos[p[3]][0], datos[p[3]][1]);
 printf("Punto 5: (%d,%d)\n", datos[p[4]][0], datos[p[4]][1]);
-printf("El error total de la recta1 es %f\n", e2);
 puts("");
 puts("Fin de los datos.");
 puts("Presione una tecla para finalizar.");
